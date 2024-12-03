@@ -1,14 +1,21 @@
-clean: some_file
-	rm -f some_file example2.o example2 example2.c
-
-some_file: example2
+files := file1 file2
+a := one two
+b := 'one two'
+x := dude
+some_files: $(files)
+	echo "Look at this variable: " $(files)
 	touch some_file
 
-example2: example2.o
-	cc example2.o -o example2 # Runs third
+file1:
+	touch file1
 
-example2.o: example2.c
-	cc -c example2.c -o example2.o # Runs second
+file2:
+	touch file2
 
-example2.c:
-	echo "int main() { return 0; }" > example2.c # Runs first
+clean some_files:
+	echo '$a'
+	echo '$b'
+	echo $(x)
+	echo ${x}
+	echo $x # Bad practice, but works
+	rm -f file1 file2 some_file
